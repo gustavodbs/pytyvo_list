@@ -52,7 +52,7 @@
 			<!-- consultar -->
 			<div class="card mt-3">
 				<div class="card-header">
-					<h4>Listado de Beneficiarios de Pytyvo </h4><small>actualizado 14/04/20</small>
+					<h4>Listado de Beneficiarios de Pytyvo </h4><small>actualizado 15/04/20</small>
 				</div>
 
 				<div class="card-body">
@@ -60,7 +60,8 @@
 						<div class="col">
 							<form id="form">
 								<div class="input-group mb-3">
-									<div class="input-group-prepend">
+
+									<div class="input-group-prepend d-none d-md-flex">
 										<span class="input-group-text" id="basic-addon1">
 											<svg class="bi bi-card-checklist" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 												<path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 00-.5.5v9a.5.5 0 00.5.5h13a.5.5 0 00.5-.5v-9a.5.5 0 00-.5-.5zm-13-1A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h13a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0014.5 2h-13z" clip-rule="evenodd" />
@@ -97,10 +98,10 @@
 			</div>
 
 			<!-- otros enlaces -->
-			<div class="card  mt-5">
-				<div class="card-body">
-					<p>Puedes ver la lista completa <a href="full_list.html">aquí</a></p>
-					<p>Puedes descargar los PDFs <a href="https://drive.google.com/drive/folders/1M1KPRWV86CCJTWrh23ue7iaoRzuSybLt">aquí</a></p>
+			<div class="card  mt-4">
+				<div class="card-body text-center">
+					<p>Puedes ver la lista procesada completa <a href="full_list.html">aquí</a></p>
+					<p>Puedes descargar los PDF originales <a href="https://drive.google.com/drive/folders/1M1KPRWV86CCJTWrh23ue7iaoRzuSybLt">aquí</a></p>
 				</div>
 			</div>
 		</div>
@@ -149,13 +150,14 @@
 		e.preventDefault();
 		reset();
 
-		let document = parseInt($("#document").val().replace(/\D/g, ''), 10);
-
 		// Obtenemos el nro escrito por el usuario y verificamos que no esté vacio
-		if (document == "") {
+		if ($("#document").val() == "") {
 			alert("Por favor ingrese el nro de documento")
 			return;
 		}
+
+		let document = parseInt($("#document").val().replace(/\D/g, ''), 10);
+
 
 		// Verificamos si el documento está dentro del listado y formateamos con separador de miles
 		let result = bigJson.filter(item => item.ci == document);
