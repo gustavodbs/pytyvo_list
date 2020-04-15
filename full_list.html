@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Pytyvo</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.css" />
+
+	<style>
+		body {
+			font: 'Roboto'
+		}
+
+		#loader {
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.8);
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			display: table;
+			z-index: 999999;
+		}
+
+		.loader-text {
+			color: white;
+			font-size: 16px;
+			font-weight: bold;
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+			padding: 20px;
+		}
+
+		@media screen and (max-width: 767px) {
+			li.paginate_button.previous {
+				display: inline;
+			}
+
+			li.paginate_button.next {
+				display: inline;
+			}
+
+			li.paginate_button {
+				display: none;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<br>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					
+					<div class="card-header">
+						<h4>Listado de Beneficiarios de Pytyvo </h4><small>actualizado 14/04/20</small>
+					</div>
+
+					<div class="card-body">
+						<table id="table" class="table table-bordered table-sm table-sm-responsive table-striped">
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<hr>
+		<br>
+
+		<p>
+			<small>Actualizado 15/04/2020</small><br>
+			<small><b>Disclaimer:</b> Los datos que se visualizan aquí pueden no ser exactamente los mismos proveidos por el <b>MITIC</b>, ya que para mostrar en esta tabla se tuvo que convertir el PDF a un formato procesable y pudo haberse saltado algunos datos.</small>
+		</p>
+	</div>
+
+	<div id="loader">
+		<div class="loader-text">Por favor espere un momento, se están cargando los datos, no tardará mucho <br> <small>Tardará menos que descargar el pdf ;)</small> </div>
+	</div>
+
+</body>
+
+<script
+	src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.js"></script>
+
+<script>
+	let bigJson = [];
+	let pdfNumber = 1;
+	const pdfEndPage = 3;
+	let chuckSize = 5000;
+	let dataTable;
+
+	// $(document).on('ready', function () { loadJson(pdfNumber); })
+	loadJson(pdfNumber);
+
+	function loadJson(pdfNumber) {
+		$.getJSON(`data/pdf${pdfNumber}.json`, function (json) {
+			bigJson = [...bigJson, ...json];
+			if (pdfNumber < pdfEndPage) {
+				pdfNumber++;
+				loadJson(pdfNumber);
+			} else {
+				console.log("Terminó de cargar desde el archivo")
+				loadDataTables();
+			}
+		});
+	}
+
+	function loadDataTables() {
+		dataTable = $('#table').DataTable({
+			// data: bigJson.slice(0, chuckSize),
+			data: bigJson,
+			responsive: true,
+			deferRender: true,
+			scrollY: 200,
+			scrollCollapse: true,
+			scroller: true,
+			language: {
+				"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+			},
+			initComplete: function (settings, json) {
+				$('#loader').remove();
+			},
+			columns: [
+				{ data: 'ci', title: 'Documento' },
+				{ data: 'extra_data', title: 'Información Extra' }
+			]
+		});
+
+		// updateDataTable();
+	}
+
+	function updateDataTable() {
+		for (let index = chuckSize; index <= bigJson.length; index + chuckSize) {
+			// dataTable.row().data(bigJson.slice(index, chuckSize)).draw();
+		}
+	}
+</script>
+
+</html>

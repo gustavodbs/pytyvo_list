@@ -6,12 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Pytyvo</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.css" />
-
 	<style>
-		body{
-			font: 'Roboto'
+		body {
+			font: 'Roboto';
 		}
+
 		#loader {
 			width: 100%;
 			height: 100%;
@@ -32,35 +31,86 @@
 			text-align: center;
 			padding: 20px;
 		}
+
+		.document-searched {
+			font-weight: bold;
+		}
+
+		.not-found,
+		.found {
+			display: none;
+		}
 	</style>
 </head>
 
 <body>
 
 	<div class="container">
-		<br>
-		<div class="row">
-			<div class="col-12">
-				<div class="card">
-					<div class="card-header">
-						<h4>Lisitado de beneficiarios Pytyvo </h4>
+
+		<div class="d-flex flex-column">
+
+			<!-- consultar -->
+			<div class="card mt-3">
+				<div class="card-header">
+					<h4>Listado de Beneficiarios de Pytyvo </h4><small>actualizado 14/04/20</small>
+				</div>
+
+				<div class="card-body">
+					<div class="row">
+						<div class="col">
+							<form id="form">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">
+											<svg class="bi bi-card-checklist" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 00-.5.5v9a.5.5 0 00.5.5h13a.5.5 0 00.5-.5v-9a.5.5 0 00-.5-.5zm-13-1A1.5 1.5 0 000 3.5v9A1.5 1.5 0 001.5 14h13a1.5 1.5 0 001.5-1.5v-9A1.5 1.5 0 0014.5 2h-13z" clip-rule="evenodd" />
+												<path fill-rule="evenodd"
+													d="M7 5.5a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5zm-1.496-.854a.5.5 0 010 .708l-1.5 1.5a.5.5 0 01-.708 0l-.5-.5a.5.5 0 11.708-.708l.146.147 1.146-1.147a.5.5 0 01.708 0zM7 9.5a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5zm-1.496-.854a.5.5 0 010 .708l-1.5 1.5a.5.5 0 01-.708 0l-.5-.5a.5.5 0 01.708-.708l.146.147 1.146-1.147a.5.5 0 01.708 0z"
+													clip-rule="evenodd" />
+											</svg>
+										</span>
+									</div>
+
+									<input type="number" class="form-control" placeholder="Nro Documento" id="document">
+
+									<div class="input-group-append">
+										<button class="btn btn-primary" type="submit">COMPROBAR</button>
+									</div>
+								</div>
+							</form>
+						</div>
 					</div>
-					<div class="card-body">
-						<table id="table" class="table table-bordered table-sm table-sm-responsive table-striped">
-						</table>
+
+					<div class="row">
+						<div class="col">
+							<div class="not-found alert alert-danger" role="alert">
+								<p>El nro de documento <span class="document-searched"></span> no se encuentra en la lista</p>
+							</div>
+
+							<div class="found alert alert-info" role="alert">
+								<p>El nro de documento <span class="document-searched"></span> se encuentra en la lista</p>
+								<p class="found-data"></p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<br>
-		<hr>
-		<br>
 
-		<p>
-			<small>Actualizado 15/04/2020</small><br>
-			<small><b>Disclaimer:</b> Los datos que se visualizan aquí pueden no ser exactamente los mismos proveidos por el <b>MITIC</b>, ya que para mostrar en esta tabla se tuvo que convertir el PDF a un formato procesable y pudo haberse saltado algunos datos.</small>
-		</p>
+			<!-- otros enlaces -->
+			<div class="card  mt-5">
+				<div class="card-body">
+					<p>Puedes ver la lista completa <a href="full_list.html">aquí</a></p>
+					<p>Puedes descargar los PDFs <a href="https://drive.google.com/drive/folders/1M1KPRWV86CCJTWrh23ue7iaoRzuSybLt">aquí</a></p>
+				</div>
+			</div>
+		</div>
+
 	</div>
+
+	<hr>
+	<p class="m-2">
+		<small><b>Disclaimer:</b> Los datos que se visualizan aquí pueden no ser exactamente los mismos proveidos por el <b>MITIC</b>, ya que para mostrar en esta tabla se tuvo que convertir el PDF a un formato procesable y pudo haberse saltado algunos datos.</small>
+	</p>
 
 	<div id="loader">
 		<div class="loader-text">Por favor espere un momento, se están cargando los datos, no tardará mucho <br> <small>Tardará menos que descargar el pdf ;)</small> </div>
@@ -72,18 +122,16 @@
 	src="https://code.jquery.com/jquery-3.4.1.min.js"
 	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 	crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.js"></script>
 
 <script>
+	// TODO: Al convertir los datos en json, usar la CI como llave.. maybe it would be faster
 	let bigJson = [];
 	let pdfNumber = 1;
 	const pdfEndPage = 3;
-	let chuckSize = 5000;
-	let dataTable;
 
-	// $(document).on('ready', function () { loadJson(pdfNumber); })
 	loadJson(pdfNumber);
 
+	// Función para cargar los datos de los json
 	function loadJson(pdfNumber) {
 		$.getJSON(`data/pdf${pdfNumber}.json`, function (json) {
 			bigJson = [...bigJson, ...json];
@@ -91,39 +139,51 @@
 				pdfNumber++;
 				loadJson(pdfNumber);
 			} else {
-				console.log("Terminó de cargar desde el archivo")
-				loadDataTables();
+				$('#loader').remove();
 			}
 		});
 	}
 
-	function loadDataTables() {
-		dataTable = $('#table').DataTable({
-			// data: bigJson.slice(0, chuckSize),
-			data: bigJson,
-			responsive: true,
-			deferRender: true,
-			scrollY: 200,
-			scrollCollapse: true,
-			scroller: true,
-			language: {
-				"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-			},
-			initComplete: function (settings, json) {
-				$('#loader').remove();
-			},
-			columns: [
-				{ data: 'ci', title: 'Documento' },
-				{ data: 'extra_data', title: 'Información Extra' }
-			]
-		});
+	// Escuchamos el onsubmit del formulario
+	$("#form").on('submit', function (e) {
+		e.preventDefault();
+		reset();
 
-		// updateDataTable();
+		let document = parseInt($("#document").val().replace(/\D/g, ''), 10);
+
+		// Obtenemos el nro escrito por el usuario y verificamos que no esté vacio
+		if (document == "") {
+			alert("Por favor ingrese el nro de documento")
+			return;
+		}
+
+		// Verificamos si el documento está dentro del listado y formateamos con separador de miles
+		let result = bigJson.filter(item => item.ci == document);
+
+		// Agregamos separador de miles al documento escrito
+		$(".document-searched").text(thousands(document))
+
+		// Mostramos al usuario el mensaje de si se encuentra o no dentro del listado
+		if (result.length > 0) {
+			$('.found').css('display', 'block')
+			$('.found-data').text(result[0].extra_data)
+		} else {
+			$('.not-found').css('display', 'block')
+		}
+	});
+
+	// Función para resetear los mensajes
+	function reset() {
+		$('.found').css('display', 'none');
+		$('.not-found').css('display', 'none');
 	}
 
-	function updateDataTable() {
-		for (let index = chuckSize; index <= bigJson.length; index + chuckSize) {
-			// dataTable.row().data(bigJson.slice(index, chuckSize)).draw();
+	// Función para agregar separador de miles
+	function thousands(num) {
+		if (!isNaN(num)) {
+			num = num.toString().split("").reverse().join("").replace(/(?=\d*\.?)(\d{3})/g, '$1.');
+			num = num.split("").reverse().join("").replace(/^[\.]/, "");
+			return num;
 		}
 	}
 </script>
