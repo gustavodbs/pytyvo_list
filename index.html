@@ -52,7 +52,7 @@
 			<!-- consultar -->
 			<div class="card mt-3">
 				<div class="card-header">
-					<h4>Listado de Beneficiarios de Pytyvo </h4><small>actualizado 15/04/20</small>
+					<h4>Listado de Beneficiarios de Pytyvo </h4><small>actualizado 16/04/20 | nueva lista obtenida de <a href="https://www.abc.com.py/nacionales/2020/04/15/subsidio-pytyvo-aqui-puede-ver-la-nueva-lista-depurada-hoy/">abc</a> | <b><span class="data-count"></span> registros</b></small>
 				</div>
 
 				<div class="card-body">
@@ -101,7 +101,12 @@
 			<div class="card  mt-4">
 				<div class="card-body text-center">
 					<p>Puedes ver la lista procesada completa <a href="full_list.html">aquí</a></p>
-					<p>Puedes descargar los PDF originales <a href="https://drive.google.com/drive/folders/1M1KPRWV86CCJTWrh23ue7iaoRzuSybLt">aquí</a></p>
+					<p>Puedes descargar los PDFs originales <a href="https://drive.google.com/drive/folders/1M1KPRWV86CCJTWrh23ue7iaoRzuSybLt">aquí</a></p>
+					<p>
+						Puedes descargar los PDF modificados y publicados por la prensa
+						<a href="https://www.abc.com.py/nacionales/2020/04/15/subsidio-pytyvo-aqui-puede-ver-la-nueva-lista-depurada-hoy/">ABC</a> |
+						<a href="https://www.ultimahora.com/pytyvo-hacienda-publica-nueva-lista-excluir-unos-12000-postulantes-n2880250.html">UH</a>
+					</p>
 				</div>
 			</div>
 		</div>
@@ -110,11 +115,11 @@
 
 	<hr>
 	<p class="m-2">
-		<small><b>Disclaimer:</b> Los datos que se visualizan aquí pueden no ser exactamente los mismos proveidos por el <b>MITIC</b>, ya que para mostrar en esta tabla se tuvo que convertir el PDF a un formato procesable y pudo haberse saltado algunos datos.</small>
+		<small><b>Disclaimer:</b> Los datos que se visualizan aquí pueden no ser exactamente los mismos publicados en los distintos medios, ya que para mostrar en esta tabla se tuvo que convertir el PDF a un formato procesable y pudo haberse saltado algunos datos.</small>
 	</p>
 
 	<div id="loader">
-		<div class="loader-text">Por favor espere un momento, se están cargando los datos, no tardará mucho <br> <small>Tardará menos que descargar el pdf ;)</small> </div>
+		<div class="loader-text">Por favor espere un momento, se están cargando los datos, no tardará mucho<br><br><small>No olvides lavarte las manos</small></div>
 	</div>
 
 </body>
@@ -125,21 +130,21 @@
 	crossorigin="anonymous"></script>
 
 <script>
-	// TODO: Al convertir los datos en json, usar la CI como llave.. maybe it would be faster
 	let bigJson = [];
 	let pdfNumber = 1;
-	const pdfEndPage = 3;
+	const pdfEndPage = 1;
 
 	loadJson(pdfNumber);
 
 	// Función para cargar los datos de los json
 	function loadJson(pdfNumber) {
 		$.getJSON(`data/pdf${pdfNumber}.json`, function (json) {
-			bigJson = [...bigJson, ...json];
+			bigJson = { ...bigJson, ...json };
 			if (pdfNumber < pdfEndPage) {
 				pdfNumber++;
 				loadJson(pdfNumber);
 			} else {
+				$('.data-count').text(thousands(Object.keys(bigJson).length));
 				$('#loader').remove();
 			}
 		});
@@ -160,15 +165,15 @@
 
 
 		// Verificamos si el documento está dentro del listado y formateamos con separador de miles
-		let result = bigJson.filter(item => item.ci == document);
+		let result = bigJson.hasOwnProperty(document);
 
 		// Agregamos separador de miles al documento escrito
-		$(".document-searched").text(thousands(document))
+		$(".document-searched").text(thousands(document));
 
 		// Mostramos al usuario el mensaje de si se encuentra o no dentro del listado
-		if (result.length > 0) {
+		if (result) {
 			$('.found').css('display', 'block')
-			$('.found-data').text(result[0].extra_data)
+			$('.found-data').text(bigJson[document])
 		} else {
 			$('.not-found').css('display', 'block')
 		}
