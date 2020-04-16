@@ -32,6 +32,10 @@
 			padding: 20px;
 		}
 
+		.info {
+			font-size: 11px;
+		}
+
 		.document-searched {
 			font-weight: bold;
 		}
@@ -51,8 +55,8 @@
 
 			<!-- consultar -->
 			<div class="card mt-3">
-				<div class="card-header">
-					<h4>Listado de Beneficiarios de Pytyvo </h4><small>actualizado 16/04/20 | nueva lista obtenida de <a href="https://www.abc.com.py/nacionales/2020/04/15/subsidio-pytyvo-aqui-puede-ver-la-nueva-lista-depurada-hoy/">abc</a> | <b><span class="data-count"></span> registros</b></small>
+				<div class="card-header text-center">
+					<h5>Listado de Beneficiarios de Pytyvo </h5><small>actualizado 16/04/20 | nueva lista obtenida de <a href="https://www.abc.com.py/nacionales/2020/04/15/subsidio-pytyvo-aqui-puede-ver-la-nueva-lista-depurada-hoy/">abc</a> | <b><span class="data-count"></span> registros</b></small>
 				</div>
 
 				<div class="card-body">
@@ -97,16 +101,30 @@
 				</div>
 			</div>
 
-			<!-- otros enlaces -->
-			<div class="card  mt-4">
-				<div class="card-body text-center">
-					<p>Puedes ver la lista procesada completa <a href="full_list.html">aquí</a></p>
-					<p>Puedes descargar los PDFs originales <a href="https://drive.google.com/drive/folders/1M1KPRWV86CCJTWrh23ue7iaoRzuSybLt">aquí</a></p>
-					<p>
-						Puedes descargar los PDF modificados y publicados por la prensa
-						<a href="https://www.abc.com.py/nacionales/2020/04/15/subsidio-pytyvo-aqui-puede-ver-la-nueva-lista-depurada-hoy/">ABC</a> |
-						<a href="https://www.ultimahora.com/pytyvo-hacienda-publica-nueva-lista-excluir-unos-12000-postulantes-n2880250.html">UH</a>
-					</p>
+			<!-- Diferencia de lista -->
+			<div class="card mt-4">
+				<div class="card-header">
+					<h5>Historial</h5>
+				</div>
+
+				<div class="card-body">
+					<ul class="info">
+						<li>Lista actual del <b>(15/04/20)</b> se publicaron <b>268.905 registros</b></li>
+						<li>Puedes ver la lista actual completa <a href="html_list/200415.html">aquí</a></li>
+						<hr>
+						<li>Lista del <b>(14/04/20)</b> se publicaron <b>280.310 registros </b></li>
+						<li>Puedes ver la lista del 14/04/20 <a href="html_list/200414.html">aquí</a></li>
+						<hr>
+						<li>En la fecha <b>(15/04/20)</b> se eliminaron <b>11.405 registros </b></li>
+						<li>Puedes ver los registros eliminados <a href="html_list/deleted_200415.html">aquí</a></li>
+						<hr>
+						<li>Puedes descargar los PDF del 14/04/20 <a href="https://drive.google.com/drive/folders/1M1KPRWV86CCJTWrh23ue7iaoRzuSybLt">aquí</a></li>
+						<li>
+							Puedes descargar los PDF del 15/04/20 en estos enlaces
+							<a href="https://www.abc.com.py/nacionales/2020/04/15/subsidio-pytyvo-aqui-puede-ver-la-nueva-lista-depurada-hoy/">ABC</a> |
+							<a href="https://www.ultimahora.com/pytyvo-hacienda-publica-nueva-lista-excluir-unos-12000-postulantes-n2880250.html">UH</a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>

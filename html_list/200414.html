@@ -59,7 +59,7 @@
 				<div class="card">
 					
 					<div class="card-header">
-						<h4>Listado de Beneficiarios de Pytyvo </h4><small>actualizado 15/04/20</small>
+						<h5>Listado de Beneficiarios de Pytyvo </h5><small>Listado del 14/04/20</small>
 					</div>
 
 					<div class="card-body">
@@ -93,21 +93,18 @@
 <script>
 	let bigJson = [];
 	let pdfNumber = 1;
-	const pdfEndPage = 1;
-	let chuckSize = 5000;
+	const pdfEndPage = 3;
 	let dataTable;
 
-	// $(document).on('ready', function () { loadJson(pdfNumber); })
 	loadJson(pdfNumber);
 
 	function loadJson(pdfNumber) {
-		$.getJSON(`data/olds/list_200415/pdf${pdfNumber}.json`, function (json) {
+		$.getJSON(`../data/olds/list_200414/pdf${pdfNumber}.json`, function (json) {
 			bigJson = [...bigJson, ...json];
 			if (pdfNumber < pdfEndPage) {
 				pdfNumber++;
 				loadJson(pdfNumber);
 			} else {
-				console.log("Terminó de cargar desde el archivo")
 				loadDataTables();
 			}
 		});
@@ -134,14 +131,6 @@
 				{ data: 'extra_data', title: 'Información Extra' }
 			]
 		});
-
-		// updateDataTable();
-	}
-
-	function updateDataTable() {
-		for (let index = chuckSize; index <= bigJson.length; index + chuckSize) {
-			// dataTable.row().data(bigJson.slice(index, chuckSize)).draw();
-		}
 	}
 </script>
 

@@ -7,7 +7,7 @@ Para convertir los archivos JSON a CSV sin perder mucho tiempo, copiar y pegar e
 
 ```
 mkdir pytyvo && cd pytyvo
-wget https://raw.githubusercontent.com/gustavodbs/pytyvo_list/master/data/pdf{1,2,3}.json
+wget https://raw.githubusercontent.com/gustavodbs/pytyvo_list/master/data/olds/list_200415/pdf{1,2,3}.json
 
 python3 -m venv venv_pandas
 source venv_pandas/bin/activate
