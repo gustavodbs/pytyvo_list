@@ -6,11 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Pytyvo</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.css" />
 	<style>
-		body {
-			font: 'Roboto';
-		}
-
 		#loader {
 			width: 100%;
 			height: 100%;
@@ -31,19 +28,6 @@
 			text-align: center;
 			padding: 20px;
 		}
-
-		.info {
-			font-size: 11px;
-		}
-
-		.document-searched {
-			font-weight: bold;
-		}
-
-		.not-found,
-		.found {
-			display: none;
-		}
 	</style>
 </head>
 
@@ -55,13 +39,14 @@
 
 			<!-- Enlace al buscador oficial	 -->
 			<div class="card mt-3">
-				<div class="card-header">
-					<h6 class="text-center">Consultar los datos en el buscador oficial del MITIC <a href="https://bit.ly/benficiarios_pytyvo_mitic">AQUÍ</a></h6 class="text-center">
+				<div class="card-header text-center">
+					<h6>Favor utilizar el buscador oficial del MITIC <a href="https://bit.ly/benficiarios_pytyvo_mitic">AQUÍ</a></h6 class="text-center">
+					<small>El buscador en este sitio ya no está actualizado</small>
 				</div>
 			</div>
 
 			<!-- consultar -->
-			<div class="card mt-3">
+			<!-- <div class="card mt-3">
 				<div class="card-header text-center">
 					<h5>Listado de Beneficiarios de Pytyvo </h5><small>actualizado 16/04/20 | nueva lista obtenida de <a href="https://www.abc.com.py/nacionales/2020/04/15/subsidio-pytyvo-aqui-puede-ver-la-nueva-lista-depurada-hoy/">abc</a> | <b><span class="data-count"></span> registros</b></small>
 				</div>
@@ -106,6 +91,35 @@
 						</div>
 					</div>
 				</div>
+			</div> -->
+
+			<!-- graficos -->
+			<div class="card mt-4">
+				<div class="card-header text-center">
+					<h6>Beneficiados por ciudad y departamento</h6>
+					<small>Actualizado 17/04/20</small>
+				</div>
+
+				<div class="card-body">
+					<p>
+						<small>Tener en cuenta que no todos los datos tenían cargados "ciudad" y "distrito"</small>
+					</p>
+					<p>
+						<b>Registros totales:</b> 373.037<br>
+						<b>Registros con ciudades y distritos:</b> 348.191
+					</p>
+					<hr>
+
+					<div class="row">
+						<div class="col"><table id="departamentos" class="table table-bordered table-sm table-sm-responsive table-striped wrap"></table></div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col"><table id="distritos" class="table table-bordered table-sm table-sm-responsive table-striped wrap"></table></div>
+					</div>
+
+
+				</div>
 			</div>
 
 			<!-- Diferencia de lista -->
@@ -116,14 +130,14 @@
 
 				<div class="card-body">
 					<ul class="info">
-						<li>Lista actual del <b>(15/04/20)</b> se publicaron <b>268.905 registros</b></li>
-						<li>Puedes ver la lista actual completa <a href="html_list/200415.html">aquí</a></li>
+						<li>Lista de la fecha <b>(15/04/20)</b> se publicaron <b>268.905 registros</b></li>
+						<li>Puedes ver la lista completa de la fecha <b>(15/04/20)</b> <a href="https://bit.ly/2wNnJ0N">aquí</a></li>
 						<hr>
 						<li>Lista del <b>(14/04/20)</b> se publicaron <b>280.310 registros </b></li>
-						<li>Puedes ver la lista del 14/04/20 <a href="html_list/200414.html">aquí</a></li>
+						<li>Puedes ver la lista del 14/04/20 <a href="https://bit.ly/2VFhUuT">aquí</a></li>
 						<hr>
 						<li>En la fecha <b>(15/04/20)</b> se eliminaron <b>11.405 registros </b></li>
-						<li>Puedes ver los registros eliminados <a href="html_list/deleted_200415.html">aquí</a></li>
+						<li>Puedes ver los registros eliminados <a href="https://bit.ly/2XQ6rLP">aquí</a></li>
 						<hr>
 						<li>Puedes descargar los PDF del 14/04/20 <a href="https://drive.google.com/drive/folders/1M1KPRWV86CCJTWrh23ue7iaoRzuSybLt">aquí</a></li>
 						<li>
@@ -143,81 +157,70 @@
 		<small><b>Disclaimer:</b> Los datos que se visualizan aquí pueden no ser exactamente los mismos publicados en los distintos medios, ya que para mostrar en esta tabla se tuvo que convertir el PDF a un formato procesable y pudo haberse saltado algunos datos.</small>
 	</p>
 
-	<div id="loader">
+	<!-- <div id="loader">
 		<div class="loader-text">Por favor espere un momento, se están cargando los datos, no tardará mucho<br><br><small>No olvides lavarte las manos</small></div>
-	</div>
+	</div> -->
 
 </body>
-
 <script
 	src="https://code.jquery.com/jquery-3.4.1.min.js"
 	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 	crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.js"></script>
 
 <script>
-	let bigJson = [];
-	let pdfNumber = 1;
-	const pdfEndPage = 1;
+	const departamentos = [{ 'name': 'BOQUERON', 'cant': 444 }, { 'name': 'NO SUMINISTRADO', 'cant': 1317 }, { 'name': 'PRESIDENTE HAYES', 'cant': 2556 }, { 'name': 'ÑEEMBUCU', 'cant': 3612 }, { 'name': 'CANINDEYU', 'cant': 6315 }, { 'name': 'MISIONES', 'cant': 6397 }, { 'name': 'CAAZAPA', 'cant': 6816 }, { 'name': 'ALTO PARAGUAY', 'cant': 7306 }, { 'name': 'AMAMBAY', 'cant': 8144 }, { 'name': 'CONCEPCION', 'cant': 8259 }, { 'name': 'GUAIRA', 'cant': 11936 }, { 'name': 'PARAGUARI', 'cant': 13645 }, { 'name': 'CORDILLERA', 'cant': 15534 }, { 'name': 'CAPITAL', 'cant': 16592 }, { 'name': 'SAN PEDRO', 'cant': 18849 }, { 'name': 'CAAGUAZU', 'cant': 27330 }, { 'name': 'ITAPUA', 'cant': 32300 }, { 'name': 'ALTO PARANA', 'cant': 52478 }, { 'name': 'CENTRAL', 'cant': 108361 }];
 
-	loadJson(pdfNumber);
+	const distritos = [{ 'name': 'PUERTO ADELA', 'cant': 1 }, { 'name': 'DR. RAUL PEÑA', 'cant': 7 }, { 'name': 'ITANARA', 'cant': 7 }, { 'name': 'SAN ALFREDO', 'cant': 13 }, { 'name': 'TTE. ESTEBAN MARTINEZ', 'cant': 14 }, { 'name': 'VILLA FRANCA', 'cant': 14 }, { 'name': 'DESMOCHADOS', 'cant': 15 }, { 'name': 'SAN CARLOS', 'cant': 15 }, { 'name': 'SANTA ROSA DEL MONDAY', 'cant': 15 }, { 'name': 'IRUÑA', 'cant': 16 }, { 'name': 'MARIA ANTONIA', 'cant': 16 }, { 'name': 'MCAL. FRANCISCO SOLANO LOPEZ', 'cant': 17 }, { 'name': 'HUMAITA', 'cant': 19 }, { 'name': 'ISLA UMBU', 'cant': 19 }, { 'name': 'DR. BOTTRELL', 'cant': 20 }, { 'name': 'KARAPAI', 'cant': 20 }, { 'name': 'PASO BARRETO', 'cant': 20 }, { 'name': 'SAN JUAN BAUTISTA DE ÑEEMBUCU', 'cant': 20 }, { 'name': 'PASO DE PATRIA', 'cant': 21 }, { 'name': 'ZANJA PYTA', 'cant': 22 }, { 'name': 'GENERAL DIAZ', 'cant': 24 }, { 'name': 'VILLA OLIVA', 'cant': 25 }, { 'name': 'SGTO. JOSE FELIX LOPEZ', 'cant': 28 }, { 'name': 'AZOTEY', 'cant': 29 }, { 'name': 'GRAL JOSE MARIA BRUGUEZ', 'cant': 29 }, { 'name': 'PUERTO PINASCO', 'cant': 30 }, { 'name': 'VILLALBIN', 'cant': 30 }, { 'name': 'ÑACUNDAY', 'cant': 30 }, { 'name': 'LA VICTORIA', 'cant': 32 }, { 'name': 'GUAZU CUA', 'cant': 33 }, { 'name': 'ANTEQUERA', 'cant': 36 }, { 'name': 'YBY PYTA', 'cant': 36 }, { 'name': 'YPE JHU', 'cant': 36 }, { 'name': 'MARACANA', 'cant': 38 }, { 'name': 'NUEVA COLOMBIA', 'cant': 38 }, { 'name': 'LEANDRO OVIEDO', 'cant': 42 }, { 'name': 'SAN JOSE OBRERO', 'cant': 43 }, { 'name': 'SAN LAZARO', 'cant': 45 }, { 'name': 'NUEVA LONDRES', 'cant': 48 }, { 'name': 'NUEVA TOLEDO', 'cant': 51 }, { 'name': 'LOMA GRANDE', 'cant': 53 }, { 'name': 'ÑUMI', 'cant': 53 }, { 'name': 'SIMON BOLIVAR', 'cant': 55 }, { 'name': 'JOSE DOMINGO OCAMPOS', 'cant': 59 }, { 'name': 'YABEBYRY', 'cant': 67 }, { 'name': 'NARANJAL', 'cant': 69 }, { 'name': 'LA PAZ', 'cant': 74 }, { 'name': 'CARMELO PERALTA', 'cant': 75 }, { 'name': 'SANTA FE DEL PARANA', 'cant': 75 }, { 'name': 'ESCOBAR', 'cant': 77 }, { 'name': 'TACUARAS', 'cant': 78 }, { 'name': 'SAN VICENTE PANCHOLO', 'cant': 79 }, { 'name': 'VAQUERIA', 'cant': 81 }, { 'name': 'PUERTO CASADO', 'cant': 85 }, { 'name': 'LAURELES', 'cant': 90 }, { 'name': 'MBARACAYU', 'cant': 90 }, { 'name': 'NATALICIO TALAVERA', 'cant': 93 }, { 'name': 'SAPUCAI', 'cant': 96 }, { 'name': 'TTE 1RO MANUEL IRALA FERNANDEZ', 'cant': 96 }, { 'name': 'TEBICUARY', 'cant': 98 }, { 'name': 'MAYOR MARTINEZ', 'cant': 100 }, { 'name': 'NANAWA', 'cant': 102 }, { 'name': 'SAN SALVADOR', 'cant': 104 }, { 'name': 'FUERTE OLIMPO', 'cant': 106 }, { 'name': 'MCAL. ESTIGARRIBIA', 'cant': 111 }, { 'name': 'BUENA VISTA', 'cant': 113 }, { 'name': 'ARROYITO', 'cant': 119 }, { 'name': 'VILLA FLORIDA', 'cant': 129 }, { 'name': 'MACIEL', 'cant': 130 }, { 'name': 'MOISES BERTONI', 'cant': 131 }, { 'name': 'YASY KAÑY', 'cant': 132 }, { 'name': 'VILLA DEL ROSARIO', 'cant': 133 }, { 'name': 'CERRITO', 'cant': 141 }, { 'name': 'DOMINGO MARTINEZ DE IRALA', 'cant': 145 }, { 'name': 'SAN JUAN DEL PARANA', 'cant': 153 }, { 'name': 'MAYOR JULIO DIONISIO OTAÑO', 'cant': 156 }, { 'name': 'LOMA PLATA', 'cant': 157 }, { 'name': 'MBOCAYATY', 'cant': 157 }, { 'name': 'MAURICIO JOSE TROCHE', 'cant': 164 }, { 'name': 'BENJAMIN ACEVAL', 'cant': 171 }, { 'name': 'SAN CRISTOBAL', 'cant': 176 }, { 'name': 'FILADELFIA', 'cant': 178 }, { 'name': 'TEMBIAPORA', 'cant': 180 }, { 'name': 'TEBICUARY-MI', 'cant': 188 }, { 'name': 'QUYQUYHO', 'cant': 192 }, { 'name': 'LA PASTORA', 'cant': 195 }, { 'name': 'SAN PATRICIO', 'cant': 197 }, { 'name': 'SAN ALBERTO', 'cant': 199 }, { 'name': 'JOSE FALCON', 'cant': 200 }, { 'name': 'SAN PABLO', 'cant': 200 }, { 'name': 'ITACURUBI DE LA CORDILLERA', 'cant': 201 }, { 'name': 'FULGENCIO YEGROS', 'cant': 204 }, { 'name': 'CORONEL MARTINEZ', 'cant': 213 }, { 'name': 'UNION', 'cant': 214 }, { 'name': 'CORPUS CHRISTI', 'cant': 218 }, { 'name': 'NUEVA GERMANIA', 'cant': 224 }, { 'name': 'MBOCAYATY DEL YHAGUY', 'cant': 225 }, { 'name': 'PIRAYU', 'cant': 228 }, { 'name': 'PIRAPO', 'cant': 234 }, { 'name': 'YATAITY', 'cant': 236 }, { 'name': 'JUAN DE MENA', 'cant': 239 }, { 'name': 'YBYTIMI', 'cant': 247 }, { 'name': 'FRAM', 'cant': 250 }, { 'name': 'TAVAPY', 'cant': 256 }, { 'name': 'JOSE FASSARDI', 'cant': 259 }, { 'name': 'FRANCISCO CABALLERO', 'cant': 261 }, { 'name': 'CARMEN DEL PARANA', 'cant': 267 }, { 'name': 'GENERAL HIGINIO MORINIGO', 'cant': 267 }, { 'name': 'SAN COSME Y DAMIAN', 'cant': 267 }, { 'name': 'YBYRAROBANA', 'cant': 278 }, { 'name': 'ITAPE', 'cant': 280 }, { 'name': 'CAAPUCU', 'cant': 283 }, { 'name': 'R.I. 3 CORRALES', 'cant': 290 }, { 'name': 'SAN MIGUEL', 'cant': 292 }, { 'name': 'YGUAZU', 'cant': 296 }, { 'name': 'GRAL. EUGENIO A. GARAY', 'cant': 297 }, { 'name': 'LA PALOMA', 'cant': 301 }, { 'name': 'JESUS', 'cant': 303 }, { 'name': 'LOS CEDRALES', 'cant': 303 }, { 'name': 'NUEVA ALBORADA', 'cant': 311 }, { 'name': 'SANTA ELENA', 'cant': 312 }, { 'name': 'TACUATI', 'cant': 312 }, { 'name': 'KATUETE', 'cant': 316 }, { 'name': 'NUEVA ESPERANZA', 'cant': 324 }, { 'name': 'GENERAL BERNARDINO CABALLERO', 'cant': 326 }, { 'name': 'CECILIO BAEZ', 'cant': 334 }, { 'name': 'PRIMERO DE MARZO', 'cant': 341 }, { 'name': 'SANTA MARIA', 'cant': 347 }, { 'name': 'DELGADO', 'cant': 348 }, { 'name': 'SANTIAGO', 'cant': 350 }, { 'name': 'BORJA', 'cant': 361 }, { 'name': 'VILLA YGATIMI', 'cant': 362 }, { 'name': 'ITAPUA POTY', 'cant': 363 }, { 'name': 'BELLA VISTA SUR', 'cant': 364 }, { 'name': 'BELLA VISTA', 'cant': 368 }, { 'name': 'MBUYAPEY', 'cant': 371 }, { 'name': 'FELIX PEREZ CARDOZO', 'cant': 382 }, { 'name': 'MINGA PORA', 'cant': 394 }, { 'name': 'CAPITAN BADO', 'cant': 400 }, { 'name': 'BELEN', 'cant': 401 }, { 'name': 'VALENZUELA', 'cant': 401 }, { 'name': 'TRINIDAD', 'cant': 405 }, { 'name': 'GENERAL ARTIGAS', 'cant': 426 }, { 'name': 'ITURBE', 'cant': 426 }, { 'name': '3 DE FEBRERO', 'cant': 431 }, { 'name': 'LA COLMENA', 'cant': 432 }, { 'name': 'ISLA PUCU', 'cant': 441 }, { 'name': 'YRYVU CUA', 'cant': 445 }, { 'name': '25 DE DICIEMBRE', 'cant': 452 }, { 'name': 'TAVAI', 'cant': 458 }, { 'name': 'ALTO VERA', 'cant': 460 }, { 'name': 'ITACURUBI DEL ROSARIO', 'cant': 464 }, { 'name': 'CAPITAN MEZA', 'cant': 469 }, { 'name': 'RAUL ARSENIO OVIEDO', 'cant': 473 }, { 'name': 'ALBERDI', 'cant': 501 }, { 'name': 'YATAITY DEL NORTE', 'cant': 508 }, { 'name': 'GRAL RESQUIN', 'cant': 512 }, { 'name': 'SANTA ROSA DEL MBUTUY', 'cant': 538 }, { 'name': '3 DE MAYO', 'cant': 539 }, { 'name': 'LIMA', 'cant': 543 }, { 'name': 'YATYTAY', 'cant': 543 }, { 'name': 'HOHENAU', 'cant': 564 }, { 'name': 'SAN RAFAEL DEL PARANA', 'cant': 574 }, { 'name': 'OBLIGADO', 'cant': 602 }, { 'name': 'NUEVA ITALIA', 'cant': 622 }, { 'name': 'SAN JOAQUIN', 'cant': 623 }, { 'name': 'LORETO', 'cant': 675 }, { 'name': 'CAPITAN MIRANDA', 'cant': 713 }, { 'name': 'SAN ROQUE GONZALEZ', 'cant': 727 }, { 'name': 'CARAGUATAY', 'cant': 730 }, { 'name': 'SAN BERNARDINO', 'cant': 733 }, { 'name': 'CARLOS ANTONIO LOPEZ', 'cant': 763 }, { 'name': 'SANTA RITA', 'cant': 780 }, { 'name': 'CARAYAO', 'cant': 786 }, { 'name': 'SAN JOSE DE LOS ARROYOS', 'cant': 786 }, { 'name': 'YUTY', 'cant': 796 }, { 'name': 'GENERAL ELIZARDO AQUINO', 'cant': 803 }, { 'name': 'YBY YAU', 'cant': 822 }, { 'name': 'ABAI', 'cant': 853 }, { 'name': 'ACAHAY', 'cant': 875 }, { 'name': 'AYOLAS', 'cant': 926 }, { 'name': 'ITAKYRY', 'cant': 952 }, { 'name': 'YPACARAI', 'cant': 979 }, { 'name': 'SAN JUAN BAUTISTA', 'cant': 1001 }, { 'name': 'DR. JUAN LEON MALLORQUIN', 'cant': 1005 }, { 'name': 'MARIANO ROQUE ALONSO', 'cant': 1010 }, { 'name': 'LIBERACION', 'cant': 1012 }, { 'name': 'DR. JUAN MANUEL FRUTOS', 'cant': 1020 }, { 'name': 'PASO YOBAI', 'cant': 1036 }, { 'name': 'CAACUPE', 'cant': 1044 }, { 'name': 'ALTOS', 'cant': 1045 }, { 'name': 'EMBOSCADA', 'cant': 1054 }, { 'name': 'EDELIRA', 'cant': 1067 }, { 'name': 'NATALIO', 'cant': 1071 }, { 'name': 'SANTA ROSA', 'cant': 1084 }, { 'name': 'VILLETA', 'cant': 1114 }, { 'name': 'ARROYOS Y ESTEROS', 'cant': 1135 }, { 'name': 'YHU', 'cant': 1155 }, { 'name': 'ATYRA', 'cant': 1164 }, { 'name': 'YBYCUI', 'cant': 1165 }, { 'name': 'QUINDY', 'cant': 1278 }, { 'name': 'CORONEL BOGADO', 'cant': 1290 }, { 'name': 'NO SUMINISTRADO', 'cant': 1318 }, { 'name': 'CAAZAPA', 'cant': 1332 }, { 'name': 'J EULOGIO ESTIGARRIBIA', 'cant': 1366 }, { 'name': 'REPATRIACION', 'cant': 1368 }, { 'name': 'TOMAS ROMERO PEREIRA', 'cant': 1387 }, { 'name': 'CHORE', 'cant': 1396 }, { 'name': 'SAN PEDRO DEL YCUAMANDIYU', 'cant': 1411 }, { 'name': 'COLONIA INDEPENDENCIA', 'cant': 1419 }, { 'name': 'EUSEBIO AYALA', 'cant': 1457 }, { 'name': 'GUAJAYVI', 'cant': 1464 }, { 'name': 'JUAN E. OLEARY', 'cant': 1466 }, { 'name': 'SAN PEDRO DEL PARANA', 'cant': 1546 }, { 'name': 'PARAGUARI', 'cant': 1563 }, { 'name': 'ÑEMBY', 'cant': 1700 }, { 'name': 'CURUGUATY', 'cant': 1709 }, { 'name': 'GUARAMBARE', 'cant': 1743 }, { 'name': 'SANTA ROSA DEL AGUARAY', 'cant': 1748 }, { 'name': 'HORQUETA', 'cant': 1763 }, { 'name': 'VILLA HAYES', 'cant': 1914 }, { 'name': 'SAN JUAN NEPOMUCENO', 'cant': 1997 }, { 'name': 'SAN IGNACIO', 'cant': 2006 }, { 'name': 'SALTO DEL GUAIRA', 'cant': 2298 }, { 'name': 'YAGUARON', 'cant': 2334 }, { 'name': 'PIRIBEBUY', 'cant': 2343 }, { 'name': 'PILAR', 'cant': 2482 }, { 'name': 'SAN ANTONIO', 'cant': 2530 }, { 'name': 'TOBATI', 'cant': 2538 }, { 'name': 'CARAPEGUA', 'cant': 3247 }, { 'name': 'SAN ESTANISLAO', 'cant': 3384 }, { 'name': 'VILLA ELISA', 'cant': 3468 }, { 'name': 'CAPIIBARY', 'cant': 3510 }, { 'name': 'CONCEPCION', 'cant': 4330 }, { 'name': 'AREGUA', 'cant': 4470 }, { 'name': 'YPANE', 'cant': 4736 }, { 'name': 'CAMBYRETA', 'cant': 4872 }, { 'name': 'MINGA GUAZU', 'cant': 5063 }, { 'name': 'HERNANDARIAS', 'cant': 5113 }, { 'name': 'J A SALDIVAR', 'cant': 5490 }, { 'name': 'FERNANDO DE LA MORA', 'cant': 5934 }, { 'name': 'ITAUGUA', 'cant': 6281 }, { 'name': 'VILLARRICA', 'cant': 6340 }, { 'name': 'LIMPIO', 'cant': 6711 }, { 'name': 'PRESIDENTE FRANCO', 'cant': 6847 }, { 'name': 'BAHIA NEGRA', 'cant': 6947 }, { 'name': 'ITA', 'cant': 7220 }, { 'name': 'CORONEL OVIEDO', 'cant': 7310 }, { 'name': 'PEDRO JUAN CABALLERO', 'cant': 7335 }, { 'name': 'LAMBARE', 'cant': 8364 }, { 'name': 'CAAGUAZU', 'cant': 10166 }, { 'name': 'ENCARNACION', 'cant': 12425 }, { 'name': 'SAN LORENZO', 'cant': 13597 }, { 'name': 'LUQUE', 'cant': 15189 }, { 'name': 'ASUNCION', 'cant': 16603 }, { 'name': 'CAPIATA', 'cant': 17211 }, { 'name': 'CIUDAD DEL ESTE', 'cant': 29193 }];
 
-	// Función para cargar los datos de los json
-	function loadJson(pdfNumber) {
-		$.getJSON(`data/pdf${pdfNumber}.json`, function (json) {
-			bigJson = { ...bigJson, ...json };
-			if (pdfNumber < pdfEndPage) {
-				pdfNumber++;
-				loadJson(pdfNumber);
-			} else {
-				$('.data-count').text(thousands(Object.keys(bigJson).length));
-				$('#loader').remove();
-			}
-		});
+	let lang = {
+		sProcessing: "Procesando...",
+		sLengthMenu: "Mostrar _MENU_ registros",
+		sZeroRecords: "No se encontraron resultados",
+		sEmptyTable: "Ningún dato disponible en esta tabla",
+		sInfo: "Del _START_ al _END_ de un total de _TOTAL_ registros",
+		sInfoEmpty: "Del 0 al 0 de un total de 0 registros",
+		sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+		sInfoPostFix: "",
+		sSearch: "Buscar:",
+		sUrl: "",
+		sInfoThousands: ",",
+		sLoadingRecords: "Cargando...",
+		oPaginate: {
+			sFirst: "Primero",
+			sLast: "Último",
+			sNext: "Siguiente",
+			sPrevious: "Anterior"
+		},
+		oAria: {
+			sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+			sSortDescending: ": Activar para ordenar la columna de manera descendente"
+		}
 	}
 
-	// Escuchamos el onsubmit del formulario
-	$("#form").on('submit', function (e) {
-		e.preventDefault();
-		reset();
-
-		// Obtenemos el nro escrito por el usuario y verificamos que no esté vacio
-		if ($("#document").val() == "") {
-			alert("Por favor ingrese el nro de documento")
-			return;
-		}
-
-		let document = parseInt($("#document").val().replace(/\D/g, ''), 10);
-
-
-		// Verificamos si el documento está dentro del listado y formateamos con separador de miles
-		let result = bigJson.hasOwnProperty(document);
-
-		// Agregamos separador de miles al documento escrito
-		$(".document-searched").text(thousands(document));
-
-		// Mostramos al usuario el mensaje de si se encuentra o no dentro del listado
-		if (result) {
-			$('.found').css('display', 'block')
-			$('.found-data').text(bigJson[document])
-		} else {
-			$('.not-found').css('display', 'block')
-		}
+	$('#departamentos').DataTable({
+		data: departamentos,
+		"order": [[1, "desc"]],
+		"bLengthChange": false,
+		language: lang,
+		columns: [
+			{ data: 'name', title: 'Departamento' },
+			{ data: 'cant', title: 'Cantidad' }
+		]
 	});
 
-	// Función para resetear los mensajes
-	function reset() {
-		$('.found').css('display', 'none');
-		$('.not-found').css('display', 'none');
-	}
+	$('#distritos').DataTable({
+		// data: bigJson.slice(0, chuckSize),
+		data: distritos,
+		"order": [[1, "desc"]],
+		"bLengthChange": false,
+		language: lang,
+		columns: [
+			{ data: 'name', title: 'Distrito' },
+			{ data: 'cant', title: 'Cantidad' }
+		]
+	});
 
-	// Función para agregar separador de miles
-	function thousands(num) {
-		if (!isNaN(num)) {
-			num = num.toString().split("").reverse().join("").replace(/(?=\d*\.?)(\d{3})/g, '$1.');
-			num = num.split("").reverse().join("").replace(/^[\.]/, "");
-			return num;
-		}
-	}
 </script>
 
 </html>
