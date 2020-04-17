@@ -96,26 +96,30 @@
 			<!-- graficos -->
 			<div class="card mt-4">
 				<div class="card-header text-center">
-					<h6>Beneficiados por ciudad y departamento</h6>
+					<h6>Beneficiados por departamentos y distritos</h6>
 					<small>Actualizado 17/04/20</small>
 				</div>
 
 				<div class="card-body">
 					<p>
-						<small>Tener en cuenta que no todos los datos tenían cargados "ciudad" y "distrito"</small>
+						<small>Tener en cuenta que no todos los datos tenían cargados "departamento" y "distrito"</small>
 					</p>
 					<p>
 						<b>Registros totales:</b> 373.037<br>
-						<b>Registros con ciudades y distritos:</b> 348.191
+						<b>Registros con departamentos y distritos:</b> 348.191
 					</p>
 					<hr>
 
 					<div class="row">
-						<div class="col"><table id="departamentos" class="table table-bordered table-sm table-sm-responsive table-striped wrap"></table></div>
+						<div class="col">
+							<table id="departamentos" class="table table-bordered table-sm table-sm-responsive table-striped wrap"></table>
+						</div>
 					</div>
 					<hr>
 					<div class="row">
-						<div class="col"><table id="distritos" class="table table-bordered table-sm table-sm-responsive table-striped wrap"></table></div>
+						<div class="col">
+							<table id="distritos" class="table table-bordered table-sm table-sm-responsive table-striped wrap"></table>
+						</div>
 					</div>
 
 
@@ -166,6 +170,8 @@
 	src="https://code.jquery.com/jquery-3.4.1.min.js"
 	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 	crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.js"></script>
 
 <script>
@@ -203,6 +209,8 @@
 		"order": [[1, "desc"]],
 		"bLengthChange": false,
 		language: lang,
+		dom: 'Bfrtip',
+		buttons: [ { extend: 'pdf', text: 'Descargar' }],
 		columns: [
 			{ data: 'name', title: 'Departamento' },
 			{ data: 'cant', title: 'Cantidad' }
@@ -215,6 +223,8 @@
 		"order": [[1, "desc"]],
 		"bLengthChange": false,
 		language: lang,
+		dom: 'Bfrtip',
+		buttons: [ { extend: 'pdf', text: 'Descargar' }],
 		columns: [
 			{ data: 'name', title: 'Distrito' },
 			{ data: 'cant', title: 'Cantidad' }
